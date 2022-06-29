@@ -9,13 +9,14 @@ interface AsyncResolverFunc {
 
 function simpleFunc(funcName: string): AsyncFunc {
   return async function(parent: any, args: any, context: any, info: any): Promise<any>  {
+    let data = db[funcName]
     if (parent && parent.id) {
-      return db[funcName][parent.id]
+      data = db[funcName][parent.id]
     }
-    else if (args && args.id) {
-      return db[funcName].find(entity => entity.id === args.id);
+    if (args && args.id) {
+      return data.find(entity => entity.id === args.id);
     }
-    return db[funcName];
+    return data;
   }
 }
 
@@ -49,29 +50,19 @@ export const asyncFunc: AsyncResolverFunc = simpleFunc
 export const asyncFuncResolvers = {
   Query: {
     clients: asyncFunc('clients'),
-    client: (parent, args, context, info) => {
-      return db.clients.find(client => client.id === args.id);
-    }
+    client: asyncFunc('clients'),
   },
   Client: {
-    studies: (client) => {
-      return db.clientStudies[client.id];
-    }
+    studies: asyncFunc('clientStudies')
   },
   Study: {
-    subjects: (study) => {
-      return db.studySubjects[study.id];
-    }
+    subjects: asyncFunc('studySubjects')
   },
   Subject: {
-    visits: (subject) => {
-      return db.subjectVisits[subject.id];
-    }
+    visits: asyncFunc('subjectVisits')
   },
   Visit: {
-    forms: (visit) => {
-      return db.visitForms[visit.id];
-    }
+    forms: asyncFunc('visitForms')
   }
 };
 
