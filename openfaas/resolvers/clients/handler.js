@@ -7,8 +7,8 @@ const clients = [
 
 module.exports = async (event, context) => {
   let data = clients
-  if (id) {
-    data = clients[id]
+  if (event.body && event.body.id) {
+    data = clients.find(entity => entity.id === event.body.id);
   }
   const result = {
     'body': JSON.stringify(data),

@@ -6,5 +6,9 @@ functions:
   clients:
     lang: node17
     handler: ./clients
-    image: clients:latest
+    image: isterin/clients:latest
+  studies:
+    lang: ruby-http
+    handler: ./studies
+    image: isterin/studies:latest
 
