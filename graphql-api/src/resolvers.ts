@@ -65,15 +65,3 @@ export const asyncFuncResolvers = {
     forms: asyncFunc('visitForms')
   }
 };
-
-// class OpenFaaSFunc implements AsyncResolver {
-//   async (parent: any, args: {}, context: any, info: any): any {
-//     return {};
-//   }
-// }
-//
-// class KNativeFunc implements AsyncResolver {
-//   async (parent: any, args: {}, context: any, info: any): any {
-//     return {};
-//   }
-// }
