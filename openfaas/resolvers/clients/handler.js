@@ -1,18 +1,17 @@
 'use strict'
+import fs from 'fs'
 
-const clients = [
-  {id: '1', name: 'Client 1'},
-  {id: '2', name: 'Client 2'},
-];
+let db = JSON.parse(fs.readFileSync('database.json'));
 
-module.exports = async (event, context) => {
-  let data = clients
-  if (event.body && event.body.id) {
-    data = clients.find(entity => entity.id === event.body.id);
+module.exports = async ({body: {args, ctx, info, headers}}, context) => {
+  console.log("ARGUMENTS FOR 'clients'", args, ctx, info, headers, ctx)
+  let data = db.clients
+  if (args && args.id) {
+    data = db.clients.find(entity => entity.id === args.id);
   }
   const result = {
-    'body': JSON.stringify(data),
-    'content-type': event.headers["content-type"]
+    'body': JSON.stringify(data || null),
+    'content-type': "application/json"
   }
 
   return context
