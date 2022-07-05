@@ -61,14 +61,10 @@ echo
 
 echo "Deploying functions"
 
-for func in ./resolvers/*/*.yml; do
-    dir=`dirname $func`
-    file=`basename $func`
-    pushd $dir &> /dev/null    
+cd ./resolvers
+for dir in ./resolvers; do
     faas-cli template pull
-    # faas-cli up -f ./${file}
-    faas-cli deploy -f ./${file}
-    popd &> /dev/null
+    faas-cli up -f functions.yml
 done
 
 
