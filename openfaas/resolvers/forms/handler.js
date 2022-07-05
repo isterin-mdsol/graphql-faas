@@ -3,11 +3,12 @@ const fs = require('fs')
 
 let db = JSON.parse(fs.readFileSync(`${__dirname}/common/database.json`));
 
-module.exports = async ({body: {args, ctx, info, headers}}, context) => {
-  console.log("ARGUMENTS FOR 'clients'", args, ctx, info, headers, ctx)
-  let data = db.clients
-  if (args && args.id) {
-    data = db.clients.find(entity => entity.id === args.id);
+module.exports = async ({body: {parent, args, ctx, info, headers}}, context) => {
+  console.log("ARGUMENTS FOR 'subjects'", args, ctx, info, headers, ctx)
+  
+  let data = null
+  if (parent && parent.id) {
+    data = db.visitForms[parent.id]
   }
   
   return context

@@ -24,11 +24,11 @@ functions:
     lang: node17
     handler: ./subjects
     image: isterin/subjects:latest
-  # visits:
-  #   lang: node17
-  #   handler: ./visits
-  #   image: isterin/visits:latest
-  # forms:
-  #   lang: node17
-  #   handler: ./forms
-  #   image: isterin/forms:latest
+  visits:
+    lang: node17
+    handler: ./visits
+    image: isterin/visits:latest
+  forms:
+    lang: node17
+    handler: ./forms
+    image: isterin/forms:latest
