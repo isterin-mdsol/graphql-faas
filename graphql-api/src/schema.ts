@@ -52,35 +52,3 @@ export const typeDefs = gql`
         client(id: ID!): Client
     }
 `;
-
-// Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
-
-export const resolvers = {
-  Query: {
-    clients: (parent, args, context, info) => db.clients,
-    client: (parent, args, context, info) => {
-      return db.clients.find(client => client.id === args.id);
-    }
-  },
-  Client: {
-    studies: (client) => {
-      return db.clientStudies[client.id];
-    }
-  },
-  Study: {
-    subjects: (study) => {
-      return db.studySubjects[study.id];
-    }
-  },
-  Subject: {
-    visits: (subject) => {
-      return db.subjectVisits[subject.id];
-    }
-  },
-  Visit: {
-    forms: (visit) => {
-      return db.visitForms[visit.id];
-    }
-  }
-};

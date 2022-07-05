@@ -29,15 +29,15 @@ export const resolvers = {
     client: asyncFunc('clients'),
   },
   Client: {
-    studies: asyncFunc('clientStudies')
+    studies: asyncFunc('studies')
   },
   Study: {
-    subjects: asyncFunc('studySubjects')
+    subjects: asyncFunc('subjects')
   },
   Subject: {
-    visits: asyncFunc('subjectVisits')
+    visits: asyncFunc('visits')
   },
   Visit: {
-    forms: asyncFunc('visitForms')
+    forms: asyncFunc('forms')
   }
 };

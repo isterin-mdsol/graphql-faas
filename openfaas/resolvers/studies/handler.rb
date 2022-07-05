@@ -2,8 +2,8 @@ require 'json'
 class Handler
 
   def initialize
-    database_file = File.expand_path('common/database.json', File.dirname(__FILE__))
-    self.db = JSON.parse(database_file, object_class: OpenStruct)
+    database = File.read(File.expand_path('common/database.json', File.dirname(__FILE__)))
+    @db = JSON.parse(database)
   end
 
 
@@ -12,23 +12,22 @@ class Handler
     payload = JSON.parse(body.string)
     puts(payload.inspect)
     
-    parent = payload.fetch("parent", {})
-    parent_id = parent.fetch("id", nil)
-    
-    args = payload.fetch("args", {})
-    id = args.fetch("id", nil)
+    parent_id = payload.dig("parent", "id")    
+    id = payload.dig("args", "id")
 
     puts("parent_id: #{parent_id}, id: #{id}")
 
-    client_studies = self.db.clientStudies
+    client_studies = @db['clientStudies']
     
     data = nil
     if id
       studies = client_studies.map(&:values).flatten
       data = studies.find {|e| e == id}
     elsif parent_id
-      data = client_studies.fetch(parent_id)
+      data = client_studies[parent_id]
     end
+
+    puts("RETURNING DATA: #{data.inspect}")
 
     STDOUT.flush
     return JSON.generate(data), {"content-type" => "application/json"}, 200
