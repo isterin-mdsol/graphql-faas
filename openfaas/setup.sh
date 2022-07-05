@@ -13,20 +13,6 @@ if (! command -v brew &> /dev/null ); then
   echo "You must have homebrew installed"
   exit 1
 fi
-if (! command -v npm &> /dev/null ); then
-  echo "You must have node and npm installed"
-  exit 1
-fi
-
-# Install pnpm, because you know, it's better :-)
-if (! command -v npm &> /dev/null ); then
-  echo "Installing pnpm..."
-  brew install pnpm
-fi
-
-# We use pnpm workspaces, so just a single install will do
-echo "Installing workspace dependencies..."
-pnpm install
 
 if (! command -v faas-cli &> /dev/null ); then
   echo "Installing OpenFAAS..."

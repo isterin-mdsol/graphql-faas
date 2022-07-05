@@ -1,5 +1,6 @@
 import db from '../database';
 import openFaasFunc from "./openfaas";
+import kNativeFunc from "./knative";
 
 export interface AsyncFunc {
   (parent: any, args: any, context: any, info: any): Promise<any>;
@@ -8,7 +9,7 @@ interface AsyncResolverFunc {
   (funcName: string): AsyncFunc;
 }
 
-export const asyncFunc: AsyncResolverFunc = openFaasFunc
+export const asyncFunc: AsyncResolverFunc = kNativeFunc
 
 function simpleFunc(funcName: string): AsyncFunc {
   return async function(parent: any, args: any, context: any, info: any): Promise<any>  {
