@@ -21,3 +21,10 @@ Details instructions: https://github.com/knative/docs/tree/main/code-samples/ser
 6. Configure logging https://knative.dev/docs/serving/observability/logging/collecting-logs/#procedure
     kubectl apply -f https://github.com/knative/docs/raw/main/docs/serving/observability/logging/fluent-bit-collector.yaml
     kubectl port-forward --namespace logging service/log-collector 8080:80
+
+
+kind create cluster --name knative --config kindconfig.yaml
+kn quickstart kind 
+kubectl apply -f https://github.com/knative/docs/raw/main/docs/serving/observability/logging/fluent-bit-collector.yaml
+kubectl apply -f fluent-bit-collector.yaml
+kubectl port-forward --namespace logging service/log-collector 8080:80
