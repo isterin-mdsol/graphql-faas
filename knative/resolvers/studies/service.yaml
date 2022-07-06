@@ -1,13 +1,13 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: helloworld-python
+  name: knative-studies-resolver
   namespace: default
 spec:
   template:
     spec:
       containers:
-      - image: docker.io/{username}/helloworld-python
+      - image: docker.io/isterin/knative-studies-resolver
         env:
         - name: TARGET
           value: "Python Sample v1"

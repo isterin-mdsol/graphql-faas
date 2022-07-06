@@ -17,4 +17,7 @@ Details instructions: https://github.com/knative/docs/tree/main/code-samples/ser
 
 5. Get function URL:
     kubectl get ksvc knative-clients-resolver --output=custom-columns=NAME:.metadata.name,URL:.status.url
-    
+
+6. Configure logging https://knative.dev/docs/serving/observability/logging/collecting-logs/#procedure
+    kubectl apply -f https://github.com/knative/docs/raw/main/docs/serving/observability/logging/fluent-bit-collector.yaml
+    kubectl port-forward --namespace logging service/log-collector 8080:80

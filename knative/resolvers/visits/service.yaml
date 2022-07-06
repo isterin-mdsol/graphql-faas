@@ -1,13 +1,13 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: knative-subjects-resolver
+  name: knative-visits-resolver
   namespace: default
 spec:
   template:
     spec:
       containers:
-      - image: docker.io/isterin/knative-subjects-resolver
+      - image: docker.io/isterin/knative-visits-resolver
         env:
         - name: TARGET
-          value: "Ruby Sample v1"
+          value: "Node.js Sample v1"
