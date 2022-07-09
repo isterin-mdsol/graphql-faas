@@ -1,6 +1,7 @@
-First, run setup.sh
+Running `setup.sh` will install everything you need and the functions.
 
-Now let's set up a function:
+## Creating a new function
+
 Details instructions: https://github.com/knative/docs/tree/main/code-samples/serving/hello-world/helloworld-nodejs
 
 1. Clone one of hello world apps as a template
@@ -18,13 +19,16 @@ Details instructions: https://github.com/knative/docs/tree/main/code-samples/ser
 5. Get function URL:
     kubectl get ksvc knative-clients-resolver --output=custom-columns=NAME:.metadata.name,URL:.status.url
 
-6. Configure logging https://knative.dev/docs/serving/observability/logging/collecting-logs/#procedure
-    kubectl apply -f https://github.com/knative/docs/raw/main/docs/serving/observability/logging/fluent-bit-collector.yaml
-    kubectl port-forward --namespace logging service/log-collector 8080:80
+## Tailing the logs
 
+Currently, setting up logging in knative ia brain numbing activity.  KNative automatically scales the function containers as needed. The containers scale down to 0 if it's not used for a minute or so.  This is all configurable, but much harder when using the quickstart template.  For now, if something doesn't work when you invoke a function and you need to debug, you can quickly run this command:
 
-kind create cluster --name knative --config kindconfig.yaml
-kn quickstart kind 
-kubectl apply -f https://github.com/knative/docs/raw/main/docs/serving/observability/logging/fluent-bit-collector.yaml
-kubectl apply -f fluent-bit-collector.yaml
-kubectl port-forward --namespace logging service/log-collector 8080:80
+`> kubectl get pods -A | grep PartOfTheNameOfYourFunction`
+
+This will give you the id of the container, which you can then use to tail the logs
+
+`> kubectl logs -f name-of-the-conatainer-from-above-1234`
+
+Remember, these commands will only work within a minute after executing the function, since that's when KNative will create the container and keep it alive for a minute or so.  To keep the container alive, you just keep invoking it every 30 seconds or so while tailing the log.
+
+Sorry, I ran out of time in figuring out how to get quickstart local env to not scale functions down to 0 or how to better aggregate logs.
