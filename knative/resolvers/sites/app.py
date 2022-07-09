@@ -12,18 +12,16 @@ db = json.load(database_file.open())
 app = Flask(__name__)
 
 @app.route('/', methods=["POST"])
-def studies():
+def sites():
     body = request.get_json()
     parent_id = body.get("parent", {}).get("id", None)
 
-    client_studies = db['clientStudies']
+    study_subjects = db['studySubjects']
 
     data = None
     if parent_id:
-        data = client_studies.get(parent_id, None)
+        data = study_subjects.get(parent_id, {}).get("site", {})
     
-    pp.pprint(data)
-
     return jsonify(data), 200
 
 if __name__ == "__main__":

@@ -19,10 +19,12 @@ fi
 if (! command -v kn &> /dev/null ); then
   brew install knative/client/kn
   brew install knative-sandbox/kn-plugins/quickstart
+fi
+if [[ ! $(kubectl get namespace | grep knative) ]]; then
   kn quickstart kind
 fi
 
-for resolver in ./resolvers/{clients,studies,subjects}/service.yaml; do
+for resolver in ./resolvers/{clients,studies,subjects,sites,visits,forms}/service.yaml; do
     dir=`dirname $resolver`
     file=`basename $resolver`
     funcName=`basename $dir`
@@ -30,7 +32,8 @@ for resolver in ./resolvers/{clients,studies,subjects}/service.yaml; do
     echo "DIR: ${dir} FILE: ${file} FUNC: $funcName"
     docker build -t isterin/knative-${funcName}-resolver .
     docker push isterin/knative-${funcName}-resolver
-    kubectl apply --filename ./${file}
+    kn service delete knative-${funcName}-resolver
+    kubectl apply --force --filename ./${file}
     kubectl get ksvc knative-${funcName}-resolver --output=custom-columns=NAME:.metadata.name,URL:.status.url
     popd &> /dev/null
 done

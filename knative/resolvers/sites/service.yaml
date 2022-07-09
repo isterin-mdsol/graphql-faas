@@ -1,0 +1,13 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: knative-sites-resolver
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - image: docker.io/isterin/knative-sites-resolver
+        env:
+        - name: TARGET
+          value: "Python Sample v1"

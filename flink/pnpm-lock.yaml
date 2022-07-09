@@ -1,0 +1,19 @@
+lockfileVersion: 5.4
+
+specifiers:
+  apache-flink-statefun: 3.2.0
+
+dependencies:
+  apache-flink-statefun: 3.2.0
+
+packages:
+
+  /apache-flink-statefun/3.2.0:
+    resolution: {integrity: sha512-aUt4wkycaF/P1bNud8FSAiZ8OXuXpTUihLLUIjbFERQjAd7DQNPO7Z64d7/0DB822+oWSzHIVRaXg7Sym85xQQ==}
+    dependencies:
+      google-protobuf: 3.20.1
+    dev: false
+
+  /google-protobuf/3.20.1:
+    resolution: {integrity: sha512-XMf1+O32FjYIV3CYu6Tuh5PNbfNEU5Xu22X+Xkdb/DUexFlCzhvv7d5Iirm4AOwn8lv4al1YvIhzGrg2j9Zfzw==}
+    dev: false
