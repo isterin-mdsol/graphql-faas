@@ -18,13 +18,25 @@ if (! command -v pip &> /dev/null ); then
   exit 1
 fi
 
-pip install -e requirements.txt
+pip install -r requirements.txt
+
+localstack start -d
+
+for resolver in ./resolvers/{clients,studies,subjects,sites,visits,forms}.js; do
+    dir=`dirname $resolver`
+    file=`basename $resolver`
+    extension="${file##*.}"
+    filename="${file%.*}"
+    rm ${dir}/${filename}.zip
+    zip -r9 -j ${dir}/${filename}.zip ${dir}/${file} ${dir}/database.json
+    echo ${dir}/${filename}.zip
+done
 
 terraform init
 terraform plan
 terraform apply --auto-approve
 
-open http://localhost:4566/restapis/3rcfgtcwez/test/_user_request_/graphql
+# open http://localhost:4566/restapis/3rcfgtcwez/test/_user_request_/graphql
 
 # for resolver in ./resolvers/{clients,studies,subjects,sites,visits,forms}/service.yaml; do
 #     dir=`dirname $resolver`
