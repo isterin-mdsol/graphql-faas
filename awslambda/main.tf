@@ -33,6 +33,7 @@ provider "aws" {
     iam = "http://localhost:4566"
     s3 = "http://s3.localhost.localstack.cloud:4566"
     lambda = "http://localhost:4566"
+    route53 = "http://localhost:4566"
   }
 }
 
@@ -110,6 +111,39 @@ resource "aws_api_gateway_deployment" "apigw_deployment" {
   rest_api_id = aws_api_gateway_rest_api.api_gw.id
   stage_name = "test"
 }
+
+## Domain stufff
+# resource "aws_api_gateway_domain_name" "graphql" {
+#   domain_name     = "graphql.localhost.localstack.cloud"
+# }
+
+# resource "aws_api_gateway_base_path_mapping" "graphql" {
+#   api_id      = aws_api_gateway_rest_api.api_gw.id
+#   stage_name  = aws_api_gateway_deployment.apigw_deployment.stage_name
+#   domain_name = aws_api_gateway_domain_name.graphql.domain_name
+# }
+
+# resource "aws_route53_zone" "graphql" {
+#   name = "localhost.localstack.cloud"
+#   tags = {
+#     name = "graphql-resolver-zone"
+#   }
+# }
+
+
+# resource "aws_route53_record" "api-a" {
+#   name    = aws_api_gateway_domain_name.graphql.domain_name
+#   type    = "A"
+#   zone_id = aws_route53_zone.graphql.zone_id
+
+#   alias {
+#     name                   = aws_api_gateway_domain_name.graphql.regional_domain_name
+#     zone_id                = aws_api_gateway_domain_name.graphql.regional_zone_id
+#     evaluate_target_health = false
+#   }
+# }
+## End Domain Stuff
+
 
 
 output "base_url" {
