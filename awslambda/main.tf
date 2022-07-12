@@ -7,18 +7,6 @@ terraform {
   }
 }
 
-# locals {
-#   # Common tags to be assigned to all resources
-#   functions = [
-#     "clients",
-#     "studies",
-#     "subjects",
-#     "sites",
-#     "visits",
-#     "forms"
-#   ]
-# }
-
 # Configure the AWS Provider
 provider "aws" {
   region = "us-east-1"
@@ -149,5 +137,5 @@ resource "aws_api_gateway_deployment" "apigw_deployment" {
 output "base_url" {
   description = "Base URL for API Gateway stage."
 
-  value = "http://127.0.0.1:4566/restapis/${aws_api_gateway_rest_api.api_gw.id}/${aws_api_gateway_deployment.apigw_deployment.stage_name}/_user_request_/{func_path}"
+  value = "http://127.0.0.1:4566/restapis/${aws_api_gateway_rest_api.api_gw.id}/${aws_api_gateway_deployment.apigw_deployment.stage_name}/_user_request_/"
 }

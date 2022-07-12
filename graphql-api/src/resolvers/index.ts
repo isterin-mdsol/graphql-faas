@@ -10,7 +10,7 @@ interface AsyncResolverFunc {
   (funcName: string): AsyncFunc;
 }
 
-export const asyncFunc: AsyncResolverFunc = lambdaFunc
+export const asyncFunc: AsyncResolverFunc = kNativeFunc
 
 function simpleFunc(funcName: string): AsyncFunc {
   return async function(parent: any, args: any, context: any, info: any): Promise<any>  {

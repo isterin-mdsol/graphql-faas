@@ -1,15 +1,13 @@
-```
-localstack start
+1. Run `setup.sh`
+2. Get the full URL from the *Outputs:* line.
+    base_url = "http://127.0.0.1:4566/..../_user_request_/"
+3. Run the graphql-api and set the environmental variable
+    ```
+    cd ../graphql-api 
 
-zip -r9 clients.zip clients.js database.json
+    # Replace the URL in the command below with the one you get from step 2
+    LAMBDA_URL="http://127.0.0.1:4566/restapis/q2ga9k8myh/test/_user_request_/" pnpm run-dev
+    ```
 
-awslocal lambda create-function --function-name lambda-clients --runtime nodejs16.x --zip-file fileb://clients.zip --handler clients.handler --role "arn:aws:iam::000000000000:role/graphql"
 
-awslocal lambda update-function-code \
-    --function-name lambda-clients \
-    --zip-file fileb://clients.zip
-
-awslocal lambda invoke --function-name clients_resolver_lambda --cli-binary-format raw-in-base64-out --payload '{"body": {"args": {"id": "1"}}}' /dev/stdout
-
-```
-
+If you make any changes, just rerun `./setup.sh` to let terraform apply the changes
