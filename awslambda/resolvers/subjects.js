@@ -5,13 +5,11 @@ let db = JSON.parse(fs.readFileSync(`${__dirname}/database.json`));
 
 exports.handler = async event => {
   console.log("EVENT", event)
-  let {args} = event.body
-  console.log("ARGS", args)
-  console.log("CLIENTS", db.clients)
+  let {parent} = JSON.parse(event.body)
   
-  let data = db.clients
-  if (args && args.id) {
-    data = db.clients.find(entity => entity.id === args.id);
+  let data = db.studySubjects
+  if (parent && parent.id) {
+    data = db.studySubjects[parent.id];
   }
 
   return {

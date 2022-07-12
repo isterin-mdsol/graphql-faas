@@ -9,7 +9,7 @@ awslocal lambda update-function-code \
     --function-name lambda-clients \
     --zip-file fileb://clients.zip
 
-awslocal lambda invoke --function-name lambda-clients --cli-binary-format raw-in-base64-out --payload '{"body": {"args": {"id": "1"}}}' /dev/stdout
+awslocal lambda invoke --function-name clients_resolver_lambda --cli-binary-format raw-in-base64-out --payload '{"body": {"args": {"id": "1"}}}' /dev/stdout
 
 ```
 

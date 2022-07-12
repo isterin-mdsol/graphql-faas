@@ -115,5 +115,5 @@ resource "aws_api_gateway_deployment" "apigw_deployment" {
 output "base_url" {
   description = "Base URL for API Gateway stage."
 
-  value = "http://localhost:4566/restapis/${aws_api_gateway_rest_api.api_gw.id}/${aws_api_gateway_deployment.apigw_deployment.stage_name}/_user_request_/{func_path}"
+  value = "http://127.0.0.1:4566/restapis/${aws_api_gateway_rest_api.api_gw.id}/${aws_api_gateway_deployment.apigw_deployment.stage_name}/_user_request_/{func_path}"
 }
